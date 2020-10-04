@@ -26,9 +26,9 @@ router
   .delete(deleteThought);
 
   router.route('/:thoughtId/reactions')
-  .put(addReaction);
+  .put(addReaction)
 
-  router.route('/:thoughtId/reactions/:reactionId')
+  // router.route('/:thoughtId/reactions/:reactionId')
   .delete(removeReaction);
 
 module.exports = router;
