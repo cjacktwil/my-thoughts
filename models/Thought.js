@@ -1,17 +1,16 @@
 const { Schema, model, Types } = require('mongoose');
 const moment = require('moment');
-// const { truncate } = require('fs');
 
 const ReactionSchema = new Schema(
     {
         reactionId: {
-            //Use Mongoose's ObjectId data type
-            //Default value is set to a new ObjectId
+            type: Schema.Types.ObjectId,
+            default: () => new Types.ObjectId()
         },
         reactionBody: {
             type: String,
             required: true,
-            //280 character maximum
+            maxlength: 280
         },
         username: {
             type: String,
@@ -19,8 +18,13 @@ const ReactionSchema = new Schema(
         },
         createdAt: {
             type: Date,
-            //Set default value to the current timestamp
-            //Use moment in a getter method to format the timestamp on query
+            default: Date.now,
+            get: createdAtVal => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
+        }
+    },
+    {
+        toJSON: {
+            getters: true
         }
     }
 )
@@ -30,21 +34,27 @@ const ThoughtSchema = new Schema(
         thoughtText: {
             type: String,
             required: true,
-            //Must be between 1 and 280 characters
+            minlength: 1,
+            maxlength: 280
         },
         createdAt: {
             type: Date,
-            //Set default value to the current timestamp
-            //Use moment in a getter method to format the timestamp on query
+            default: Date.now,
+            get: createdAtVal => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
         },
         username: {
             type: String,
             required: true
         },
-        reactions: {
-            //Array of nested documents created with the reactionSchema
-        }
-    }
+        reactions: [ReactionSchema],
+        // default: undefined
+    },
+    {
+        toJSON: {
+          virtuals: true,
+        },
+        id: false
+      }
 )
 
 ThoughtSchema.virtual('reactionCount').get(function() {

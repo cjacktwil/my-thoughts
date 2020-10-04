@@ -4,10 +4,10 @@ const thoughtController = {
     // get all users
     getAllThoughts(req, res) {
         Thought.find({})
-        // .populate({
-        //     path: 'comments',
-        //     select: '-__v'
-        // })
+        .populate({
+            path: 'reactions',
+            select: '-__v'
+        })
         .select('-__v')
         .sort({ _id: -1 })
           .then(dbThoughtData => res.json(dbThoughtData))
@@ -20,10 +20,10 @@ const thoughtController = {
       // get one thought by id
       getThoughtById({ params }, res) {
         Thought.findOne({ _id: params.id })
-        // .populate({
-        //     path: 'thoughts',
-        //     select: '-__v'
-        // })
+        .populate({
+            path: 'thoughts',
+            select: '-__v'
+        })
         .select('-__v')
           .then(dbThoughtData => {
             // If no thought is found, send 404
@@ -39,9 +39,21 @@ const thoughtController = {
           });
       },
       //create new thought
-      createThought({ body }, res) {
+      createThought({ params, body }, res) {
         Thought.create(body)
-          .then(dbThoughtData => res.json(dbThoughtData))
+        .then(({ _id}) => {
+          return User.findOneAndUpdate(
+            { _id: params.userId },
+            { $push: { thoughts: _id } },
+            { new: true }
+          );
+        }) 
+          .then(dbUserData => {
+            if(!dbUserData) {
+              res.status(404).json({ message: "No user found with that id" });
+              return}
+               res.json(dbUserData);
+            })
           .catch(err => res.status(400).json(err));
       },
     
