@@ -1,6 +1,4 @@
 const { Schema, model, Types } = require('mongoose');
-const moment = require('moment');
-const ThoughtSchema = require('./Thought.js')
 
 const UserSchema = new Schema(
     {
@@ -14,17 +12,15 @@ const UserSchema = new Schema(
             type: String,
             unique: true,
             required: true,
-            //add email validation
+            match: [/.+@.+\..+/]
         },
         thoughts: [
-            // ThoughtSchema],
             {
                 type: Schema.Types.ObjectId,
                 ref: 'Thought'
               }
           ],
         friends: [
-            // UserSchema]
           {
                 type: Schema.Types.ObjectId,
                 ref: 'User'
