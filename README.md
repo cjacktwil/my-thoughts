@@ -21,7 +21,7 @@ Initiate the application by running 'npm start'. The API contains GET routes to 
 ### DEMONSTRATION VIDEOS
 [![User Routes Demonstration](./assets/images/userroutesscreenshot.jpg)](https://drive.google.com/file/d/1qBUoRIWI6SWsd0BEQ7aSX9vF5XPvyA5r/view)
 
-[![ADDING/REMOVING FRIENDS DEMONSTRATION](./assets/images/addfriendsscreenshot.jpg)](https://drive.google.com/file/d/12ksBVouIAZGc2HlJK97u3XAUuxVbA560/view)
+[![ADDING/REMOVING FRIENDS DEMONSTRATION](./assets/images/addfriendsscrrenshot.jpg)](https://drive.google.com/file/d/12ksBVouIAZGc2HlJK97u3XAUuxVbA560/view)
 
 [![THOUGHT ROUTES WITH REACTIONS DEMONSTRATION](./assets/images/thoughtsreactionroutesscreenshot.jpg)](https://drive.google.com/file/d/1M88tRjAjnZSZ5PAIYRi2DK-BQuJnW5tq/view)
 
